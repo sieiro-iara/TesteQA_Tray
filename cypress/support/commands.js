@@ -10,19 +10,14 @@ Cypress.Commands.add('gerarEmailYopmail', () => {
     return email+'@yopmail.com';
 });
 
-Cypress.Commands.add('getToken', (email, senha) => {
-    return cy.request({
-      method: 'POST',
-      url: 'https://serverest.dev/login',
-      body: {
-        email: email,
-        password: senha
-      },
-      failOnStatusCode: false
-    }).then((response) => {
-      expect(response.status).to.be.oneOf([200, 201]);
-      const token = response.body.authorization
-      expect(token).to.be.a('string').and.not.be.empty;
-      return token;
-    });
-  });
+Cypress.Commands.add('gerarConta', () => {
+  const caracteres = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  const tamanhoConta = 10;
+  let conta = '';
+  
+  for (let i = 0; i < tamanhoConta; i++) {
+      conta += caracteres.charAt(Math.floor(Math.random() * caracteres.length));
+  }
+  
+  return 'Conta '+conta;
+});
